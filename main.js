@@ -27,14 +27,15 @@ var planets = [{
 
 var planetHolderDiv = document.getElementById('planetHolder');
 var getPlanetsButton = document.getElementById('showButton');
+var inputField = document.getElementById('searchText');
 
-function domString() {
+function domString(planetz) {
 	var planetString = '';
-	for (var i =0; i< planets.length; i++) {
+	for (var i =0; i< planetz.length; i++) {
 		var newPlanet = "";
 		newPlanet += `<div class="planetBox" id="planetBox-${i}">`;
-		newPlanet += `<div class="planetName">${planets[i].name}</div>`;
-		newPlanet += `<img class="planetImage" src="${planets[i].url}">`;
+		newPlanet += `<div class="planetName hidden">${planetz[i].name}</div>`;
+		newPlanet += `<img class="planetImage" src="${planetz[i].url}">`;
 		newPlanet += `</div>`;
 		planetString += newPlanet;
 
@@ -49,8 +50,45 @@ function writeToDom(strang) {
 }
 
 getPlanetsButton.addEventListener('mouseenter', function(){
-	domString();
+	domString(planets);
 })
+
+function showMe(e) {
+	e.target.previousSibling.classList.remove('hidden');
+}
+
+document.body.addEventListener('click', function(event){
+	// console.log("click event", event);
+	// console.log('click event', event.target.parentNode.parentNode.parentNode);
+		if (event.target.className === 'planetImage')  {
+			console.log("yaaaaaa");
+			showMe(event);
+		}
+})
+
+
+inputField.addEventListener('keypress', function(event) {
+	// console.log("event", event.key);
+	if(event.key === 'Enter') {
+		var txt = inputField.value;
+		// 1. filter planets array
+		var results = planets.filter(function(thing) {
+			console.log("filter thing", thing);
+			return thing.name.indexOf(txt)>-1;
+		})
+		// 2. domString
+		domString(results);
+		console.log(results);
+	}
+})
+
+
+
+
+
+
+
+
 
 
 
