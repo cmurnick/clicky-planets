@@ -28,6 +28,7 @@ var planets = [{
 var planetHolderDiv = document.getElementById('planetHolder');
 var getPlanetsButton = document.getElementById('showButton');
 var inputField = document.getElementById('searchText');
+var clearButton = document.getElementById('clearButton');
 
 function domString(planetz) {
 	var planetString = '';
@@ -80,6 +81,12 @@ inputField.addEventListener('keypress', function(event) {
 		domString(results);
 		console.log(results);
 	}
+})
+
+clearButton.addEventListener('click', function() {
+	inputField.value="";
+	writeToDom('');
+
 })
 
 
